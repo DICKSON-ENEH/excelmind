@@ -4,14 +4,26 @@ import React from "react";
 
 export default function page() {
   return (
-    <div className="border border-purple-50 mx-auto my-auto p-6 w-fit">
-      <p className="font-medium">Email</p>
-      <Input />
-      <div className="m-4" />
-      <p className="font-medium">Password</p>
-      <Input />
-      <div className="m-4" />
-      <Button>Login</Button>
+    <div className="h-[100vh] bg-white flex justify-center items-center flex-col">
+      <p className="mb-6 text-2xl text-gray-800">Login in to your account</p>
+      <div className="border-2 border-purple-100 p-8 w-fit">
+        <p className="font-medium text-[19px] text-gray-800">Email</p>
+        <Input
+          placeholder="Enter your email"
+          className="!w-[300px] !text-[#000]"
+        />
+        <p className="font-medium text-[19px] text-gray-800">Password</p>
+        <Input
+          type="password"
+          placeholder="Enter your password"
+          className="!w-[300px] !text-[#000]"
+        />
+        <div className="m-8" />
+
+        <Button className="bg-purple-800 p-2 !text-[#e7ddddef] h-[60px] w-[300px] cursor-pointer">
+          Login
+        </Button>
+      </div>
     </div>
   );
 }
