@@ -1,4 +1,3 @@
-
 "use client";
 import React, { useState } from "react";
 import SideBar from "../ReusableComponents/SideBar/SideBar";
@@ -8,7 +7,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const [active, setactive] = useState(false);
 
   return (
-    <div className="flex h-screen w-screen max-w-[100vw] overflow-hidden bg-blue-50">
+    <div className="flex h-screen w-screen max-w-[100vw] overflow-hidden ">
       <SideBar active={active} setactive={setactive} />
 
       <div className="flex-1 flex flex-col overflow-hidden">
@@ -16,6 +15,5 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <main className="flex-1 overflow-y-auto p-6">{children}</main>
       </div>
     </div>
-
   );
 }
