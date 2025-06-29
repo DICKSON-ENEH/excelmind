@@ -2,6 +2,7 @@
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 import { GrHomeRounded } from "react-icons/gr";
+
 import { MdOutlineClear } from "react-icons/md";
 import { PiGraduationCapBold } from "react-icons/pi";
 
@@ -15,6 +16,7 @@ const SideBar: React.FC<SideBarProps> = ({ active, setactive }) => {
   const path = usePathname();
 
   const menu = [
+
     {
       menu: "Home",
       link: "/dashboard/home",
@@ -26,6 +28,7 @@ const SideBar: React.FC<SideBarProps> = ({ active, setactive }) => {
       icon: <PiGraduationCapBold />,
     },
   ];
+
 
   return (
     <aside
@@ -79,3 +82,4 @@ const SideBar: React.FC<SideBarProps> = ({ active, setactive }) => {
 };
 
 export default SideBar;
+
