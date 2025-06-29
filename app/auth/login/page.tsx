@@ -6,7 +6,7 @@ export default function page() {
   return (
     <div className="h-[100vh] bg-white flex justify-center items-center flex-col">
       <p className="mb-6 text-2xl text-gray-800">Login in to your account</p>
-      <div className="border-2 border-purple-100 p-8 w-fit rounded">
+      <div className="border-2 border-purple-100 p-8 w-fit">
         <p className="font-medium text-[19px] text-gray-800">Email</p>
         <Input
           placeholder="Enter your email"
