@@ -2,31 +2,19 @@
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 import { GrHomeRounded } from "react-icons/gr";
-import { LuGraduationCap } from "react-icons/lu";
-import { PiGraduationCapBold, PiGraduationCapLight } from "react-icons/pi";
+import { MdOutlineClear } from "react-icons/md";
+import { PiGraduationCapBold } from "react-icons/pi";
 
-export default function SideBar() {
+interface SideBarProps {
+  active: boolean;
+  setactive: (active: boolean) => void;
+}
+
+const SideBar: React.FC<SideBarProps> = ({ active, setactive }) => {
   const router = useRouter();
   const path = usePathname();
-  const adminMenu = [
-    {
-      menu: "Home",
-      link: "/dashboard/home",
-      icon: {},
-    },
-    {
-      menu: "Students",
-      link: "/dashboard/students",
-      icon: {},
-    },
-    {
-      menu: "Teachers",
-      link: "/dashboard/teachers",
-      icon: {},
-    },
-  ];
 
-  const userMenu = [
+  const menu = [
     {
       menu: "Home",
       link: "/dashboard/home",
@@ -39,21 +27,55 @@ export default function SideBar() {
     },
   ];
 
-  const menu = userMenu;
   return (
-    <div className="w-full md:w-56 h-lvh border-2 border-purple-50 py-10 px-4">
-      {menu.map((item) => (
-        <div
-          className={`flex my-4 rounded px-2.5 py-3 gap-2 items-center ${
-            path == item.link ? "bg-purple-800 text-white" : "text-gray-600"
-          } `}
-          key={item.menu}
-          onClick={() => router.push(`${item.link}`)}
-        >
-          <div className="text-[16px]">{item.icon}</div>
-          <p className="text-[18px]">{item.menu}</p>
+    <aside
+      className={`fixed z-50 top-0 left-0 h-screen w-64 bg-white shadow-md transform transition-transform duration-300 ${
+        active ? "translate-x-0" : "-translate-x-full"
+      } md:translate-x-0 md:static md:shadow-none border-r border-gray-200`}
+    >
+      <div className="relative p-6 h-full flex flex-col">
+        {/* Mobile Close Icon */}
+        <div className="absolute top-4 right-4 md:hidden">
+          <button
+            onClick={() => setactive(false)}
+            className="text-gray-500 hover:text-red-600 transition-colors"
+            aria-label="Close sidebar"
+          >
+            <MdOutlineClear size={24} />
+          </button>
         </div>
-      ))}
-    </div>
+
+        {/* Brand */}
+        <h2 className="text-2xl font-bold text-purple-700 mb-10">Dashboard</h2>
+
+        {/* Menu */}
+        <nav className="flex flex-col gap-2">
+          {menu.map((item) => (
+            <button
+              key={item.menu}
+              onClick={() => {
+                router.push(item.link);
+                setactive(false); // Close sidebar on mobile
+              }}
+              className={`flex items-center gap-3 w-full text-left px-4 py-3 rounded-md transition-all ${
+                path === item.link
+                  ? "bg-purple-700 text-white"
+                  : "text-gray-700 hover:bg-gray-100"
+              }`}
+            >
+              <span className="text-xl">{item.icon}</span>
+              <span className="text-base font-medium">{item.menu}</span>
+            </button>
+          ))}
+        </nav>
+
+        {/* Footer or extra section if needed */}
+        <div className="mt-auto text-xs text-gray-400 text-center hidden md:block">
+          © {new Date().getFullYear()} GodHand UI
+        </div>
+      </div>
+    </aside>
   );
-}
+};
+
+export default SideBar;
