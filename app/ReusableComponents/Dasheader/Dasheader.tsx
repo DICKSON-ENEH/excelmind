@@ -23,7 +23,7 @@ const Dasheader: React.FC<DasheaderProps> = ({ active, setactive }) => {
       {/* Right Section: Placeholder for user menu or settings */}
       <div className="flex items-center gap-4">
         <span className="text-gray-600 text-sm hidden sm:block">
-          Welcome back, Admin
+          Welcome back,
         </span>
         <div className="w-9 h-9 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold">
           A

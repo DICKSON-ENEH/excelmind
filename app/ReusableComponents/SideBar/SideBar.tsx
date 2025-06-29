@@ -2,8 +2,9 @@
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 import { GrHomeRounded } from "react-icons/gr";
+import { HiOutlineAcademicCap } from "react-icons/hi";
 
-import { MdOutlineClear } from "react-icons/md";
+import { MdAssignment, MdOutlineClear } from "react-icons/md";
 import { PiGraduationCapBold } from "react-icons/pi";
 
 interface SideBarProps {
@@ -16,7 +17,6 @@ const SideBar: React.FC<SideBarProps> = ({ active, setactive }) => {
   const path = usePathname();
 
   const menu = [
-
     {
       menu: "Home",
       link: "/dashboard/home",
@@ -24,11 +24,20 @@ const SideBar: React.FC<SideBarProps> = ({ active, setactive }) => {
     },
     {
       menu: "Courses",
-      link: "/dashboard/courses",
+      link: "/dashboard/course",
       icon: <PiGraduationCapBold />,
     },
+    {
+      menu: "Assignments",
+      link: "/dashboard/assignments",
+      icon: <MdAssignment />,
+    },
+    {
+      menu: "Exams",
+      link: "/dashboard/exams",
+      icon: <HiOutlineAcademicCap />,
+    },
   ];
-
 
   return (
     <aside
@@ -74,7 +83,7 @@ const SideBar: React.FC<SideBarProps> = ({ active, setactive }) => {
 
         {/* Footer or extra section if needed */}
         <div className="mt-auto text-xs text-gray-400 text-center hidden md:block">
-          © {new Date().getFullYear()} GodHand UI
+          © {new Date().getFullYear()} ExelMind
         </div>
       </div>
     </aside>
@@ -82,4 +91,3 @@ const SideBar: React.FC<SideBarProps> = ({ active, setactive }) => {
 };
 
 export default SideBar;
-
