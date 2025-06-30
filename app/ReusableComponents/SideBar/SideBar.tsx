@@ -5,7 +5,7 @@ import { GrHomeRounded } from "react-icons/gr";
 import { PiGraduationCapBold } from "react-icons/pi";
 
 import { FaUserGraduate, FaUsers } from "react-icons/fa6";
-import { MdAssignment, MdDashboard } from "react-icons/md";
+import { MdAssignment, MdDashboard, MdOutlineClear } from "react-icons/md";
 import { HiOutlineAcademicCap } from "react-icons/hi";
 
 interface SideBarProps {

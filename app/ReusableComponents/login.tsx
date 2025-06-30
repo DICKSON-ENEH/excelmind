@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import * as yup from "yup";
 import { useLogin } from "../hooks/useAuth";
 import { useFormik } from "formik";
@@ -7,8 +7,10 @@ import Input from "./Inputs/Input";
 import Button from "./Buttons/Button";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { LiaSpinnerSolid } from "react-icons/lia";
 
 export default function Login() {
+  const [isLoading, setIsLoading] = useState(false);
   const { mutate: logUserIn } = useLogin();
   const router = useRouter();
 
@@ -22,6 +24,7 @@ export default function Login() {
       password: yup.string().required("password is required"),
     }),
     onSubmit: async (values) => {
+      setIsLoading(true);
       try {
         logUserIn(
           {
@@ -30,10 +33,12 @@ export default function Login() {
           {
             onSuccess: (res: unknown) => {
               toast.success(res.message);
+              setIsLoading(false);
               router.push("/dashboard/home");
             },
             onError: (res: unknown) => {
               toast.error("Invalid credentials");
+              setIsLoading(false);
             },
           }
         );
@@ -76,7 +81,14 @@ export default function Login() {
             className="bg-purple-800 p-2 !text-[#e7ddddef] h-[60px] w-[300px] cursor-pointer"
             type="submit"
           >
-            Login
+            {isLoading ? (
+              <div className="flex items-center gap-2 justify-center">
+                Logging in
+                <LiaSpinnerSolid className="text-[20px] animate-spin" />
+              </div>
+            ) : (
+              "Login"
+            )}
           </Button>
         </form>
       </div>
