@@ -31,6 +31,7 @@ export default function Login() {
             ...values,
           },
           {
+
             onSuccess: (res: any) => {
               toast.success(res.message);
               setIsLoading(false);
@@ -49,6 +50,7 @@ export default function Login() {
               }
             },
             onError: () => {
+]
               toast.error("Invalid credentials");
               setIsLoading(false);
             },
@@ -56,10 +58,12 @@ export default function Login() {
         );
       } catch (error) {
         console.error(error);
+
         setIsLoading(false);
       }
     },
   });
+
 
   return (
     <div className="h-[100vh] bg-white flex justify-center items-center flex-col">
@@ -73,10 +77,12 @@ export default function Login() {
             {...formik.getFieldProps("email")}
           />
           {formik.touched.email && formik.errors.email && (
+
             <div className="text-red-500 text-[12px] mt-[10px]">
               {formik.errors.email}
             </div>
           )}
+
 
           <p className="font-medium text-[19px] text-gray-800">Password</p>
           <Input
@@ -86,10 +92,12 @@ export default function Login() {
             {...formik.getFieldProps("password")}
           />
           {formik.touched.password && formik.errors.password && (
+
             <div className="text-red-500 text-[12px] mt-[10px]">
               {formik.errors.password}
             </div>
           )}
+
 
           <div className="m-8" />
 
