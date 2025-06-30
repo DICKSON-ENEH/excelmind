@@ -13,39 +13,48 @@ interface TableProps {
 }
 
 const Table: React.FC<TableProps> = ({ columns = [], data = [] }) => {
-  const getStatusClass = (status: string) => {
-    switch (status?.toLowerCase()) {
-      case "active":
-      case "approved":
-        return "text-green-600 font-semibold";
-      case "graduated":
-      case "ended":
-        return "text-yellow-500 font-semibold";
-      case "suspended":
-      case "declined":
-        return "text-red-500 font-semibold";
-      case "pending":
-        return "text-blue-500 font-semibold";
-      default:
-        return "text-gray-500 font-medium";
-    }
-  };
-
   const getNestedValue = (obj: Record<string, any>, path: string): any => {
     return path
       .split(".")
       .reduce((value, key) => (value ? value[key] : undefined), obj);
   };
 
+  const getStatusBadge = (status: string | undefined) => {
+    if (!status) return "—";
+
+    const statusStyles = {
+      available: "bg-green-100 text-green-800 border-green-200",
+      enrolled: "bg-blue-100 text-blue-800 border-blue-200",
+      completed: "bg-purple-100 text-purple-800 border-purple-200",
+      dropped: "bg-red-100 text-red-800 border-red-200",
+    };
+
+    const style =
+      statusStyles[status as keyof typeof statusStyles] ||
+      "bg-gray-100 text-gray-600 border-gray-200";
+
+    return (
+      <span
+        className={`px-2 py-1 rounded-full text-xs font-medium border ${style}`}
+      >
+        {status.charAt(0).toUpperCase() + status.slice(1)}
+      </span>
+    );
+  };
+
   const formatValue = (key: string, value: any): React.ReactNode => {
-    if (!value) return "—";
+    if (value === null || value === undefined || value === "") return "—";
 
     if (key === "createdAt" || key.toLowerCase().includes("date")) {
-      return new Date(value).toLocaleDateString();
+      try {
+        return new Date(value).toLocaleDateString();
+      } catch {
+        return value;
+      }
     }
 
     if (key === "status") {
-      return <span className={getStatusClass(value)}>{value}</span>;
+      return getStatusBadge(value);
     }
 
     if (typeof value === "number" && key.toLowerCase().includes("amount")) {
@@ -79,12 +88,7 @@ const Table: React.FC<TableProps> = ({ columns = [], data = [] }) => {
                 {columns.map((col) => {
                   const value = getNestedValue(row, col.key);
                   return (
-                    <td
-                      key={col.key}
-                      className={`px-4 py-3 whitespace-nowrap ${
-                        col.key === "status" ? getStatusClass(value) : ""
-                      }`}
-                    >
+                    <td key={col.key} className="px-4 py-3 whitespace-nowrap">
                       {col.render
                         ? col.render(row, rowIndex)
                         : formatValue(col.key, value)}

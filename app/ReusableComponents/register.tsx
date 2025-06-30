@@ -46,7 +46,9 @@ export default function Register() {
             onSuccess: (res: unknown) => {
               toast.success(res.message);
               setIsLoading(false);
-              router.push("/dashboard/home");
+
+              router.push("/auth/login");
+
             },
             onError: (res: unknown) => {
               toast.error("Couldn't create user");
