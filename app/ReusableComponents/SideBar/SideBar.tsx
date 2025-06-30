@@ -2,12 +2,11 @@
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 import { GrHomeRounded } from "react-icons/gr";
-import { HiOutlineAcademicCap } from "react-icons/hi";
-import { MdAssignment, MdOutlineClear, MdDashboard } from "react-icons/md";
 import { PiGraduationCapBold } from "react-icons/pi";
-import { FaUserGraduate } from "react-icons/fa";
 
-import { FaUsers } from "react-icons/fa6";
+import { FaUserGraduate, FaUsers } from "react-icons/fa6";
+import { MdAssignment, MdDashboard } from "react-icons/md";
+import { HiOutlineAcademicCap } from "react-icons/hi";
 
 interface SideBarProps {
   active: boolean;
