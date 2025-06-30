@@ -45,7 +45,7 @@ const SideBar: React.FC<SideBarProps> = ({ active, setactive, role }) => {
     admin: [
       {
         menu: "Dashboard",
-        link: "/dashboard/admin",
+        link: "/admin/overview",
         icon: <MdDashboard />,
       },
       {
