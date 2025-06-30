@@ -8,7 +8,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex h-screen w-screen max-w-[100vw] overflow-hidden ">
-      <SideBar active={active} setactive={setactive} role="user" />
+      <SideBar active={active} setactive={setactive} role="admin" />
 
       <div className="flex-1 flex flex-col overflow-hidden">
         <Dasheader active={active} setactive={setactive} />
