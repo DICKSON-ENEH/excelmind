@@ -62,6 +62,11 @@ const SideBar: React.FC<SideBarProps> = ({ active, setactive, role }) => {
         link: "/admin/allteachers",
         icon: <FaUsers />,
       },
+      {
+        menu: "Manage Enrollment",
+        link: "/admin/allenrollment",
+        icon: <PiGraduationCapBold />,
+      },
     ],
     lecturer: [
       {

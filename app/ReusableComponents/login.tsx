@@ -31,12 +31,24 @@ export default function Login() {
             ...values,
           },
           {
-            onSuccess: (res: unknown) => {
+            onSuccess: (res: any) => {
               toast.success(res.message);
               setIsLoading(false);
-              router.push("/dashboard/home");
+
+              const role = res?.data?.role;
+
+              localStorage.setItem("id", res?.data?.id);
+              localStorage.setItem("token", res.token);
+
+              if (role === "admin") {
+                router.push("/admin/overview");
+              } else if (role === "lecturer") {
+                router.push("/lecturer/home");
+              } else {
+                router.push("/dashboard/home");
+              }
             },
-            onError: (res: unknown) => {
+            onError: () => {
               toast.error("Invalid credentials");
               setIsLoading(false);
             },
@@ -44,9 +56,11 @@ export default function Login() {
         );
       } catch (error) {
         console.error(error);
+        setIsLoading(false);
       }
     },
   });
+
   return (
     <div className="h-[100vh] bg-white flex justify-center items-center flex-col">
       <p className="mb-6 text-2xl text-gray-800">Login in to your account</p>
@@ -59,10 +73,11 @@ export default function Login() {
             {...formik.getFieldProps("email")}
           />
           {formik.touched.email && formik.errors.email && (
-            <div className="text-red-500 text-[12px] text-left mt-[10px] flex justify-start w-full">
+            <div className="text-red-500 text-[12px] mt-[10px]">
               {formik.errors.email}
             </div>
           )}
+
           <p className="font-medium text-[19px] text-gray-800">Password</p>
           <Input
             type="password"
@@ -71,10 +86,11 @@ export default function Login() {
             {...formik.getFieldProps("password")}
           />
           {formik.touched.password && formik.errors.password && (
-            <div className="text-red-500 text-[12px] text-left mt-[10px] flex justify-start w-full">
+            <div className="text-red-500 text-[12px] mt-[10px]">
               {formik.errors.password}
             </div>
           )}
+
           <div className="m-8" />
 
           <Button

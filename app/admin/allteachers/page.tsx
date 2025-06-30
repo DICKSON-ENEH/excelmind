@@ -1,19 +1,22 @@
 "use client";
 import React from "react";
 import Table from "@/app/ReusableComponents/Table/Table";
+import { useGetAllUsers } from "@/app/hooks/useUsers";
 
-const teacherData = [
-  {
-    id: "TEA001",
-    name: "Jane Smith",
-    email: "jane@university.com",
-    specialization: "AI & Machine Learning",
-    status: "active",
-  },
-  // more teachers...
-];
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  specialization?: string;
+  status?: string;
+  role: string;
+}
 
 const AllTeachers = () => {
+  const { data: users = [], isLoading, error } = useGetAllUsers();
+
+  const teacherData = users.filter((user: User) => user.role === "lecturer");
+
   const columns = [
     { key: "id", title: "ID" },
     { key: "name", title: "Full Name" },
@@ -32,6 +35,9 @@ const AllTeachers = () => {
       ),
     },
   ];
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Failed to load teachers.</div>;
 
   return (
     <div className="p-6">
