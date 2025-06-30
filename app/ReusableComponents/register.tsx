@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Input from "./Inputs/Input";
 import Button from "./Buttons/Button";
 import * as yup from "yup";
@@ -7,8 +7,10 @@ import { useFormik } from "formik";
 import { useSignup } from "../hooks/useAuth";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { LiaSpinnerSolid } from "react-icons/lia";
 
 export default function Register() {
+  const [isLoading, setIsLoading] = useState(false);
   const { mutate: registerUser } = useSignup();
   const router = useRouter();
 
@@ -36,16 +38,19 @@ export default function Register() {
         ),
     }),
     onSubmit: async (values) => {
+      setIsLoading(true);
       try {
         registerUser(
           { ...values },
           {
             onSuccess: (res: unknown) => {
               toast.success(res.message);
+              setIsLoading(false);
               router.push("/dashboard/home");
             },
             onError: (res: unknown) => {
               toast.error("Couldn't create user");
+              setIsLoading(false);
             },
           }
         );
@@ -154,7 +159,14 @@ export default function Register() {
               type="submit"
               className="w-full bg-purple-800 hover:bg-purple-700 text-white font-medium py-2 px-4 rounded-md transition duration-200"
             >
-              Create Account
+              {isLoading ? (
+                <div className="flex items-center gap-2 justify-center">
+                  Creating Acount
+                  <LiaSpinnerSolid className="text-[20px] animate-spin" />
+                </div>
+              ) : (
+                "Create Account"
+              )}
             </Button>
 
             <div className="text-center">
