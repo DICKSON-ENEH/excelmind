@@ -32,8 +32,9 @@ export default function RootLayout({
         >
           {children}
         </body>
-      </TanstackProvider>
       <ToastContainer />
+
+      </TanstackProvider>
     </html>
   );
 }
